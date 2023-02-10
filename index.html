@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue js</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container main" id="app">
+        <h1>{{ title }}</h1>
+        <p>{{ message }}</p>
+        <p>{{ bonjour() }}</p>
+        <p>L'aire d'un carré de 5 mètre de côté est de {{ calculSquareSurface(5) }}m²</p>
+        <p>L'aire d'un rectangle de {{ width }}m de longueur et {{ height}} m de largeur est de {{ calculRectangleSurface() }}m² </p>
+        <ul>
+            <!-- Boucle v-for-->
+            <li v-for="fruit in fruits">
+                {{ fruit }}
+            </li>
+            <br>
+            <!-- v-bind pour aller sur le lien -->
+            <a v-bind:href="lien">Alphorm</a>
+            <br>
+            <!-- : est un raccourci de v-bind -->
+            <a :href="lien">Alphorm</a>
+
+            <div>
+                <img :src="image" alt="chien" width="500" height="500">
+            </div>
+        </ul>
+        <!-- v-on pour activer une fonction / action et je choisis l'event sur un bouton -->
+        <button class="btn btn-danger" v-on:click="redButton()">Bouton rouge</button>
+        <br><br>
+
+        <!-- Le raccourci @event -->
+        <button class="btn btn-primary" @click="blueButton()">Bouton bleu</button>
+        <br><br>
+
+        <button class="btn btn-dark" @mouseleave="blackButton()">Bouton noir</button>
+        <br><br>
+
+        <!-- v-if pour la condition -->
+        <div v-if="animal">
+            {{ message }}
+        </div>
+
+        <!-- v-model permet d'afficher le message dans l'input et de le modifier en temps réel, réactive -->
+        <input type="text" v-model="message">
+
+        <div class="text-dark executed">Hello Chloé</div>
+
+        <!-- Changer l'état lors du click -->
+        <h3 class="text-dark" @click="done = !done" :class="{executed : done}">Hello World</h3>
+
+        <!-- v-html permet d'afficher du html -->
+        <div v-html="textHTML"></div>
+
+        <div>{{ km }} km(s)</div>
+
+        <table>
+            <thead>
+            <th scope="col">#</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Age</th>
+            </thead>
+            <tbody>
+            <!-- Nouvelle syntaxe pour v-for pour récupérer l'index -->
+            <tr v-for="(user, index) in users">
+                <th scope="row">{{index + 1}}</th>
+                <!-- On affiche l'index + 1 puisqu'on commence à 0 -->
+                <th>{{user.firstname}}</th>
+                <th>{{user.lastname}}</th>
+                <th>{{user.age}}</th>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="alert alert-danger" v-if="errors.length">
+            <p v-for="error in errors">{{error}}</p>
+        </div>
+
+        <form>
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="firstname" class="form-control" placeholder="First Name" v-model="newUser.firstname">
+                </div>
+                <div class="col">
+                    <input type="text" name="lastname" class="form-control" placeholder="Last Name" v-model="newUser.lastname">
+                </div>
+                <div class="col">
+                    <input type="number" name="age" class="form-control" placeholder="Age" v-model="newUser.age">
+                </div>
+                <div class="col">
+                    <input type="button" class="btn btn-primary" value="Ajouter" @click="addUser()">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script src="script.js"></script>
+</html>
